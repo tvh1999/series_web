@@ -9,19 +9,19 @@ export const NAVIGATION_ITEMS: NavTypes = [
   },
   {
     id: "movie-category",
-    href: "/movie",
+    href: "/category/movie",
     src: "/assets/icon-nav-movies.svg",
     alt: "Movie",
   },
   {
     id: "series-category",
-    href: "/tv_series",
+    href: "/category/tv_series",
     src: "/assets/icon-nav-tv-series.svg",
     alt: "TV series",
   },
   {
     id: "bookmark-category",
-    href: "/bookmark",
+    href: "/category/bookmark",
     src: "/assets/icon-nav-bookmark.svg",
     alt: "Bookmark",
   },

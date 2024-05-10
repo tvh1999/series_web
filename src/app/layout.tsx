@@ -3,11 +3,13 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import { ClerkProvider } from "@clerk/nextjs";
-// import ThemeProvider from "@/context/ThemeProvider";
 import Theme from "@/context/ThemeProvider";
-// import { ThemeProvider } from "next-themes";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -36,7 +38,9 @@ export default function RootLayout({
       }}
     >
       <html lang="en" suppressHydrationWarning>
-        <body className={inter.className}>
+        <body
+          className={`min-h-screen w-screen max-w-full md:p-6 lg:p-8 ${inter.className}`}
+        >
           <Theme>{children}</Theme>
         </body>
       </html>

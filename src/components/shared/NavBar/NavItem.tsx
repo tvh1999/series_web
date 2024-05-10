@@ -12,19 +12,29 @@ const NavItem = ({
   href: string;
   src: string;
   alt: string;
-  isActive?: boolean;
+  isActive: boolean;
 }) => {
   return (
     <li
-      className={`text-30 mt-4 px-3 py-2 font-bold ${isActive ? "border-primary-red rounded-xl border" : ""}`}
+      className={`text-30 mt-4 px-3 py-2 font-bold md:mt-0 md:p-0 ${isActive ? "rounded-xl border border-primary-red" : ""}`}
     >
-      <Link href={href} className="flex items-center justify-start gap-2">
+      <Link
+        href={href}
+        className="flex items-center justify-start gap-2 md:gap-8"
+      >
         <Image
-          className="text-primary-red fill-current"
+          className="fill-current object-contain text-primary-red md:hidden"
           src={src}
           alt={alt}
           width={14}
           height={14}
+        />
+        <Image
+          className="hidden fill-current object-contain text-primary-red md:inline-block"
+          src={src}
+          alt={alt}
+          width={20}
+          height={20}
         />
         <h5 className="sm:hidden">{alt}</h5>
       </Link>

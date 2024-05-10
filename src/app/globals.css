@@ -21,6 +21,14 @@
     @apply fixed top-0 left-0 right-0;
   }
 
+  .fixed-tablet-header {
+    @apply md:max-lg:inset-x-6 md:max-lg:top-6;
+  }
+
+  .fixed-desktop-header {
+    @apply lg:inset-x-8 lg:top-8;
+  }
+
   .category-btn {
     @apply max-w-full w-4 max-h-4;
   }
