@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .background-lightWhite-darkBlue {
+    @apply bg-white dark:bg-dark-dark-blue;
+  }
+
+  .form-background-semiLightBlue-semiDarkBlue {
+    @apply bg-light-semi-light-blue dark:bg-dark-semi-dark-blue;
+  }
+
+  .primary-font-color-pureWhite-pureBlack {
+    @apply text-light-pure-black dark:text-dark-pure-white;
+  }
+
+  .category-background-color {
+    @apply bg-light-lighter-greyish-blue dark:bg-dark-darker-greyish-blue;
+  }
+
+  .large-heading {
+    @apply font-light text-32;
+  }
+
+  .medium-heading {
+    @apply font-light text-24;
+  }
+
+  .small-heading {
+    @apply font-medium text-24;
+  }
+
+  .extra-small-heading {
+    @apply font-medium text-18;
+  }
+
+  .medium-paragraph {
+    @apply font-light text-15;
+  }
+
+  .small-paragraph {
+    @apply font-light text-13;
+  }
+}
