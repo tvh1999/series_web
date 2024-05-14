@@ -16,21 +16,21 @@ const NavItem = ({
 }) => {
   return (
     <li
-      className={`text-30 mt-4 px-3 py-2 font-bold md:mt-0 md:p-0 ${isActive ? "rounded-xl border border-primary-red" : ""}`}
+      className={`text-30 mt-4 px-3 py-2 font-bold md:mt-0 md:p-0 ${isActive ? "border border-primary-red" : ""}`}
     >
       <Link
         href={href}
         className="flex items-center justify-start gap-2 md:gap-8"
       >
         <Image
-          className="fill-current object-contain text-primary-red md:hidden"
+          className={`object-contain ${isActive ? "border fill-primary-red" : ""} md:hidden`}
           src={src}
           alt={alt}
           width={14}
           height={14}
         />
         <Image
-          className="hidden fill-current object-contain text-primary-red md:inline-block"
+          className={`hidden object-contain ${isActive ? "border fill-primary-red" : ""} md:inline-block`}
           src={src}
           alt={alt}
           width={20}
