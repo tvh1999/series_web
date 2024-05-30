@@ -8,7 +8,7 @@ import ThemeToggle from "../Theme/ThemeToggle";
 
 const Header = () => {
   return (
-    <header className="fixed-content flex-between form-background-semiLightBlue-semiDarkBlue fixed-tablet-header fixed-desktop-header mb-8 min-h-[72px] rounded-[10px] px-4 py-3 lg:flex lg:min-h-[960px] lg:w-24 lg:flex-col lg:justify-start lg:px-8 lg:py-9">
+    <header className="sticky-content flex-between form-background-semiLightBlue-semiDarkBlue sticky-tablet-header sticky-desktop-header z-10 mb-8 min-h-[72px] rounded-[10px] px-4 py-3 lg:flex lg:min-h-[960px] lg:w-24 lg:flex-col lg:justify-start lg:px-8 lg:py-9">
       <div className="lg:mb-20">
         <Image
           src="/assets/logo.svg"

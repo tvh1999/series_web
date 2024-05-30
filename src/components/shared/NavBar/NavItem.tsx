@@ -36,7 +36,7 @@ const NavItem = ({
           width={20}
           height={20}
         />
-        <h5 className="sm:hidden">{alt}</h5>
+        <h5 className=" text-black sm:hidden ">{alt}</h5>
       </Link>
     </li>
   );

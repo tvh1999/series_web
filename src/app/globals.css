@@ -17,15 +17,15 @@
     @apply flex justify-start items-start;
   }
 
-  .fixed-content {
-    @apply fixed top-0 left-0 right-0;
+  .sticky-content {
+    @apply sticky top-0 left-0 right-0;
   }
 
-  .fixed-tablet-header {
+  .sticky-tablet-header {
     @apply md:max-lg:inset-x-6 md:max-lg:top-6;
   }
 
-  .fixed-desktop-header {
+  .sticky-desktop-header {
     @apply lg:inset-x-8 lg:top-8;
   }
 

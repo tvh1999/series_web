@@ -1,26 +1,28 @@
+"use client";
 import React from "react";
 import Image from "next/image";
-
-const BookmarkedState = ({ isBookmarked }: { isBookmarked: boolean }) => {
+// bg-[#606779]
+const BookmarkedState = ({ className }: { className?: string }) => {
+  const [bookmarkedIconState, setBookmarkedIconState] = React.useState(false);
+  const bookkmarkedIconSrc =
+    bookmarkedIconState === true
+      ? "/assets/icon-bookmark-full.svg"
+      : "/assets/icon-bookmark-empty.svg";
+  const bookkmarkedIconAlt =
+    bookmarkedIconState === true
+      ? "Series bookmakred"
+      : "Series is not bookmakred";
   return (
-    <div>
-      {isBookmarked ? (
-        <Image
-          src="/assets/icon-bookmark-full.svg"
-          alt="Bookmark"
-          width={12}
-          height={14}
-          className="absolute right-4 top-4"
-        />
-      ) : (
-        <Image
-          src="/assets/icon-bookmark-empty.svg"
-          alt="Bookmark"
-          width={12}
-          height={14}
-          className="absolute right-4 top-4"
-        />
-      )}
+    <div
+      className={`flex-center min-h-8 w-8 max-w-full rounded-full bg-[#606779]/50 ${className} hover:cursor-pointer`}
+      onClick={() => setBookmarkedIconState(!bookmarkedIconState)}
+    >
+      <Image
+        src={bookkmarkedIconSrc}
+        width={11.7}
+        height={14}
+        alt={bookkmarkedIconAlt}
+      />
     </div>
   );
 };

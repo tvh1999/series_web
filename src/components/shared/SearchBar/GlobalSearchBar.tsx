@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { formSchema } from "@/lib/validations";
 import Image from "next/image";
 
-function SearchBar({ placeHolder }: { placeHolder: string }) {
+function GlobalSearchBar() {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,12 +46,19 @@ function SearchBar({ placeHolder }: { placeHolder: string }) {
                     alt="Search Icon"
                     width={32}
                     height={32}
-                    className="object-contain"
+                    className="hidden object-contain sm:inline-block"
+                  />
+                  <Image
+                    src={"/assets/icon-search.svg"}
+                    alt="Search Icon"
+                    width={24}
+                    height={24}
+                    className="object-contain sm:hidden"
                   />
                   <Input
                     type="text"
-                    placeholder={placeHolder}
-                    className="no-focus primary-font-color-pureWhite-pureBlack border-none shadow-none outline-none focus:border-b focus:border-b-white"
+                    placeholder="Search for movies and TV series..."
+                    className="no-focus primary-font-color-pureWhite-pureBlack border-none p-0 text-16 shadow-none outline-none focus:border-b focus:border-b-white"
                     {...field}
                   />
                 </div>
@@ -66,4 +73,4 @@ function SearchBar({ placeHolder }: { placeHolder: string }) {
   );
 }
 
-export default SearchBar;
+export default GlobalSearchBar;
