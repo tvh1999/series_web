@@ -64,7 +64,7 @@ export async function POST(req: Request) {
       name: `${first_name} ${last_name}`,
       email: email_addresses[0].email_address,
       profileImage: image_url,
-      userName: username!,
+      username: username!,
       createdOn: new Date(),
     });
 
@@ -81,7 +81,7 @@ export async function POST(req: Request) {
         name: `${first_name} ${last_name}`,
         email: email_addresses[0].email_address,
         profileImage: image_url,
-        userName: username!,
+        username: username!,
         createdOn: new Date(),
       },
       path: `/profile/${id}`,
