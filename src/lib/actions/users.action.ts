@@ -12,8 +12,8 @@ import Series from "@/database/series.model";
 export const findUserById = async (id: string) => {
   try {
     await connectToDatabase();
-
     const userId = await Users.findOne({ clerkId: id });
+
     if (!userId)
       throw new Error("There is no such a clerk user in the database");
     return userId;
