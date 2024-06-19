@@ -11,7 +11,7 @@ const SeriesItem = ({
 }: {
   document: ISeriesType;
   isTrending?: boolean;
-  userId?: string;
+  userId: string;
 }) => {
   const imageSrc =
     document.category === "Movie"
@@ -34,6 +34,7 @@ const SeriesItem = ({
         otherClass="absolute right-2 top-2"
         seriesId={document._id}
         userId={userId}
+        isBookmarked={document.isBookmarked}
       />
       {/* Co truong hop series khong phai la trending se khong co image cho trending aka khong co duong dan anh cho thumbnail.trending.small */}
       <ItemThumbnail

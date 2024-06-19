@@ -23,7 +23,12 @@ const BookmarkedCollectionPage = async () => {
       ) : (
         <ul>
           {seriesList?.map((series: any) => (
-            <li key={series._id}>{series.title}</li>
+            <li key={series._id}>
+              <h4>{series.title}</h4>
+              <p>{series.year}</p>
+              <p>{series.category}</p>
+              <p>{series.rating}</p>
+            </li>
           ))}
         </ul>
       )}

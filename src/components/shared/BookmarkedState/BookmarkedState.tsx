@@ -6,12 +6,19 @@ import { userBookmark } from "@/lib/actions/users.action";
 // bg-[#606779]
 
 interface Props {
-  userId?: string;
+  userId: string;
   seriesId: string;
+  isBookmarked: boolean;
   otherClass?: string;
 }
-const BookmarkedState = ({ userId, seriesId, otherClass }: Props) => {
-  const [bookmarkedIconState, setBookmarkedIconState] = React.useState(false);
+const BookmarkedState = ({
+  userId,
+  seriesId,
+  isBookmarked,
+  otherClass,
+}: Props) => {
+  const [bookmarkedIconState, setBookmarkedIconState] =
+    React.useState(isBookmarked);
   const path = usePathname();
   const bookkmarkedIconSrc =
     bookmarkedIconState === true
