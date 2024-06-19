@@ -33,9 +33,9 @@ const Header = () => {
         </SignedIn>
         <SignedOut>
           <SignInButton>
-            <button className="hidden rounded-lg bg-primary-red px-3 py-1 text-white sm:inline-block">
+            <div className="hidden rounded-lg bg-primary-red px-3 py-1 text-white sm:inline-block">
               Sign in
-            </button>
+            </div>
           </SignInButton>
         </SignedOut>
       </div>

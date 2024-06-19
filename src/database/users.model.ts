@@ -7,7 +7,7 @@ export interface IUsersType extends Document {
   profileImage?: string;
   username: string;
   description?: string;
-  bookmarks: Schema.Types.ObjectId[];
+  bookmarks?: Schema.Types.ObjectId[];
   createdOn: Date;
 }
 

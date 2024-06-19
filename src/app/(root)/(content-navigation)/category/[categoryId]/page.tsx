@@ -16,7 +16,7 @@ const CategoryPage = async ({ params }: { params: IParamsProps }) => {
   return (
     <div>
       <LocalSearchBar placeHolder={`Search for ${category}...`} />
-      <SeriesList data={getSeriesBasedOnCategoryPage!} />
+      <SeriesList data={getSeriesBasedOnCategoryPage!} userId={""} />
     </div>
   );
 };

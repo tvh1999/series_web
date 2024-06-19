@@ -1,9 +1,18 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { userBookmark } from "@/lib/actions/users.action";
 // bg-[#606779]
-const BookmarkedState = ({ className }: { className?: string }) => {
+
+interface Props {
+  userId?: string;
+  seriesId: string;
+  otherClass?: string;
+}
+const BookmarkedState = ({ userId, seriesId, otherClass }: Props) => {
   const [bookmarkedIconState, setBookmarkedIconState] = React.useState(false);
+  const path = usePathname();
   const bookkmarkedIconSrc =
     bookmarkedIconState === true
       ? "/assets/icon-bookmark-full.svg"
@@ -14,8 +23,11 @@ const BookmarkedState = ({ className }: { className?: string }) => {
       : "Series is not bookmakred";
   return (
     <div
-      className={`flex-center min-h-8 w-8 max-w-full rounded-full bg-[#606779]/50 ${className} hover:cursor-pointer`}
-      onClick={() => setBookmarkedIconState(!bookmarkedIconState)}
+      className={`flex-center min-h-8 w-8 max-w-full rounded-full bg-[#606779]/50 ${otherClass} hover:cursor-pointer`}
+      onClick={() => {
+        setBookmarkedIconState(!bookmarkedIconState);
+        userBookmark({ path, userId, seriesId });
+      }}
     >
       <Image
         src={bookkmarkedIconSrc}

@@ -3,6 +3,7 @@ export interface getSeriesParams {
   searchQuery?: string;
   sort?: string;
   isTrending?: boolean;
+  isBookmarked?: boolean;
 }
 
 export interface createUserParams {
@@ -28,4 +29,17 @@ export interface updateUserParams {
 
 export interface deleteUserParams {
   clerkId: string;
+}
+
+export interface bookmarkParams {
+  userId?: string;
+  seriesId: string;
+  path: string;
+}
+
+export interface getSavedSeriesParams {
+  clerkId: string;
+  page?: string;
+  pageSize?: string;
+  searchQuery?: string;
 }

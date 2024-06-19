@@ -22,12 +22,10 @@ export const getSeriesFromDB = async (params: getSeriesParams) => {
       model: Users,
     });
 
-    const getSeriesObjects = getSeries.map((series) => series.toObject());
-
-    // const parsingSeries = await JSON.parse(JSON.stringify(getSeries));
-    if (!getSeriesObjects)
+    const parsingSeries = await JSON.parse(JSON.stringify(getSeries));
+    if (!parsingSeries)
       throw new Error("There is no such series in the database");
-    return getSeriesObjects;
+    return parsingSeries;
   } catch (err: unknown) {
     if (err instanceof Error) console.error(err.message);
   }

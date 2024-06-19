@@ -7,9 +7,11 @@ import ItemThumbnail from "./ItemThumbnail";
 const SeriesItem = ({
   document,
   isTrending = false,
+  userId,
 }: {
   document: ISeriesType;
   isTrending?: boolean;
+  userId?: string;
 }) => {
   const imageSrc =
     document.category === "Movie"
@@ -28,7 +30,11 @@ const SeriesItem = ({
   );
   return (
     <div className="relative max-h-fit w-fit max-w-fit rounded-md">
-      <BookmarkedState className="absolute right-2 top-2" />
+      <BookmarkedState
+        otherClass="absolute right-2 top-2"
+        seriesId={document._id}
+        userId={userId}
+      />
       {/* Co truong hop series khong phai la trending se khong co image cho trending aka khong co duong dan anh cho thumbnail.trending.small */}
       <ItemThumbnail
         isTrending={isTrending}
