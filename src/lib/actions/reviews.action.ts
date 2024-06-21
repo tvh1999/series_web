@@ -11,13 +11,18 @@ export const createReviews = async (params: createReviewsParams) => {
     // connect to database
     await connectToDatabase();
 
-    const { seriesId, userId, content, path } = params;
+    const { seriesId, userId, title, content, path } = params;
 
     // create a review
     const review = await Reviews.create({
       author: userId,
       product: seriesId,
       content,
+      title,
+    });
+
+    await Series.findByIdAndUpdate(seriesId, {
+      $push: { reviews: review._id },
     });
 
     if (!review) throw new Error("Failed to create the review");
@@ -39,6 +44,7 @@ export const getAllReviews = async (params: getAllReviewsParams) => {
       .populate({
         path: "author",
         model: Users,
+        select: "username profileImage",
       })
       .populate({ path: "product", model: Series })
       .sort({ createdOn: sortOrder === "newest" ? -1 : 1 });

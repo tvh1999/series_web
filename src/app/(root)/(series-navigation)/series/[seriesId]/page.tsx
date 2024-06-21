@@ -1,6 +1,9 @@
 import { getSeriesBasedOnItsId } from "@/lib/actions/series.action";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
+import { getAllReviews } from "@/lib/actions/reviews.action";
+import ReviewCard from "@/components/shared/ReviewCard/ReviewCard";
 
 interface ParamsProps {
   seriesId: string;
@@ -8,7 +11,8 @@ interface ParamsProps {
 
 const SeriesPage = async ({ params }: { params: ParamsProps }) => {
   const getSeries = await getSeriesBasedOnItsId({ seriesId: params.seriesId });
-  console.log(getSeries);
+  const getReviews = await getAllReviews({ seriesId: params.seriesId });
+  // console.log(getSeries);
   return (
     <>
       <div className="block px-4 sm:grid sm:grid-cols-2 sm:gap-x-5 sm:px-0">
@@ -22,7 +26,7 @@ const SeriesPage = async ({ params }: { params: ParamsProps }) => {
             layout="responsive"
           />
         </div>
-        <div className="">
+        <div>
           <h3 className="primary-font-color-pureWhite-pureBlack text-36 font-bold">
             {getSeries.title}
           </h3>
@@ -30,6 +34,12 @@ const SeriesPage = async ({ params }: { params: ParamsProps }) => {
             <li>📅 Year producted: {getSeries.year}</li>
             <li>📚 Category: {getSeries.category}</li>
             <li>🌟 Rating: {getSeries.rating}</li>
+            <li className="flex items-center gap-x-3">
+              <button>Bookmark</button>
+              <Link href={`/review/${params.seriesId}`}>
+                <button>Write a review</button>
+              </Link>
+            </li>
           </ul>
           <p className="primary-font-color-pureWhite-pureBlack text-20 sm:hidden lg:block">
             Description: Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -52,6 +62,15 @@ const SeriesPage = async ({ params }: { params: ParamsProps }) => {
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
         officia deserunt mollit anim id est laborum.
       </p>
+      <div className="mt-5 flex flex-col gap-y-4">
+        {getReviews.length > 0 ? (
+          getReviews.map((review: any) => (
+            <ReviewCard key={review._id} review={review} />
+          ))
+        ) : (
+          <p>There are no reviews yet.</p>
+        )}
+      </div>
     </>
   );
 };

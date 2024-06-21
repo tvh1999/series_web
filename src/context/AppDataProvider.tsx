@@ -10,7 +10,7 @@ const reducer = function (
   state: DataItem[],
   action: { type: string; searchCategory?: string }
 ) {
-  return produce(state, (draftState: DataItem[]) => {
+  return produce(state, (draftState: any) => {
     switch (action.type) {
       case "filter data based on category": {
         return draftState.filter(

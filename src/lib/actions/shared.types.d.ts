@@ -51,6 +51,7 @@ export interface getSavedSeriesParams {
 export interface createReviewsParams {
   userId: string;
   seriesId: string;
+  title: string;
   content: string;
   path: string;
 }
