@@ -15,6 +15,10 @@ export interface createUserParams {
   createdOn: Date;
 }
 
+export interface getSeriesBasedOnItsIdParams {
+  seriesId: string;
+}
+
 export interface updateUserParams {
   clerkId: string;
   updateData: {
@@ -42,4 +46,16 @@ export interface getSavedSeriesParams {
   page?: string;
   pageSize?: string;
   searchQuery?: string;
+}
+
+export interface createReviewsParams {
+  userId: string;
+  seriesId: string;
+  content: string;
+  path: string;
+}
+
+export interface getAllReviewsParams {
+  seriesId: string;
+  sortOrder?: "newest" | "oldest";
 }

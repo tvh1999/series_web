@@ -11,7 +11,7 @@ const SeriesListWrapper = ({
 }) => {
   return (
     <section className="mt-6 w-fit max-w-full">
-      <h3 className="mb-4 text-20 capitalize">{heading}</h3>
+      <h3 className="mb-9 text-32 capitalize">{heading}</h3>
       <div className={className}>{children}</div>
     </section>
   );

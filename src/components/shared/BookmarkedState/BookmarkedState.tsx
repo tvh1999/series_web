@@ -31,7 +31,10 @@ const BookmarkedState = ({
   return (
     <div
       className={`flex-center min-h-8 w-8 max-w-full rounded-full bg-[#606779]/50 ${otherClass} hover:cursor-pointer`}
-      onClick={() => {
+      onClick={(e) => {
+        if (e.defaultPrevented) return;
+        e.preventDefault();
+
         setBookmarkedIconState(!bookmarkedIconState);
         userBookmark({ path, userId, seriesId });
       }}

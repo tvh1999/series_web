@@ -2,7 +2,7 @@
 import Users from "@/database/users.model";
 import { connectToDatabase } from "../mongoose";
 import Series from "@/database/series.model";
-import { getSeriesParams } from "./shared.types";
+import { getSeriesParams, getSeriesBasedOnItsIdParams } from "./shared.types";
 
 export const savingSeriesIntoDB = async (params: any) => {
   try {
@@ -16,8 +16,27 @@ export const savingSeriesIntoDB = async (params: any) => {
 export const getSeriesFromDB = async (params: getSeriesParams) => {
   try {
     await connectToDatabase();
-
     const getSeries = await Series.find(params).populate({
+      path: "reviews",
+      model: Users,
+    });
+
+    const parsingSeries = await JSON.parse(JSON.stringify(getSeries));
+    if (!parsingSeries)
+      throw new Error("There is no such series in the database");
+    return parsingSeries;
+  } catch (err: unknown) {
+    if (err instanceof Error) console.error(err.message);
+  }
+};
+
+export const getSeriesBasedOnItsId = async (
+  params: getSeriesBasedOnItsIdParams
+) => {
+  try {
+    await connectToDatabase();
+    const { seriesId } = params;
+    const getSeries = await Series.findById(seriesId).populate({
       path: "reviews",
       model: Users,
     });

@@ -29,7 +29,7 @@ const seriesSchema = new Schema({
   rating: { type: String, required: true },
   isBookmarked: { type: Boolean },
   isTrending: { type: Boolean },
-  reviews: { type: Schema.Types.ObjectId, ref: "Users" },
+  reviews: [{ type: Schema.Types.ObjectId, ref: "Reviews" }],
 });
 
 const Series = models.Series || model("Series", seriesSchema);

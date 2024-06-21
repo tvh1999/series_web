@@ -10,7 +10,7 @@ const SeriesPage = async () => {
   return (
     <div>
       <LocalSearchBar placeHolder={"Search for TV Series..."} />
-      <SeriesList data={getSeriesBasedOnCategoryPage!} />
+      <SeriesList data={getSeriesBasedOnCategoryPage!} heading="TV Series" />
     </div>
   );
 };

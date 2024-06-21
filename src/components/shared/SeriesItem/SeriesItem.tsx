@@ -3,6 +3,7 @@ import BookmarkedState from "../BookmarkedState/BookmarkedState";
 import Image from "next/image";
 import { ISeriesType } from "@/database/series.model";
 import ItemThumbnail from "./ItemThumbnail";
+import Link from "next/link";
 
 const SeriesItem = ({
   document,
@@ -29,7 +30,10 @@ const SeriesItem = ({
     />
   );
   return (
-    <div className="relative max-h-fit w-fit max-w-fit rounded-md">
+    <Link
+      href={`/series/${document._id}`}
+      className="relative max-h-fit w-fit max-w-fit rounded-md"
+    >
       <BookmarkedState
         otherClass="absolute right-2 top-2"
         seriesId={document._id}
@@ -63,7 +67,7 @@ const SeriesItem = ({
           {document.title}
         </h5>
       </div>
-    </div>
+    </Link>
   );
 };
 

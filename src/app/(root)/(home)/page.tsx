@@ -11,7 +11,7 @@ const HomePage = async () => {
     <div className="sm:px-4 md:px-0">
       <GlobalSearchBar />
       <TrendingCarousel />
-      <SeriesList data={getRecommendations!} />
+      <SeriesList data={getRecommendations!} heading="Recommended for you..." />
     </div>
   );
 };

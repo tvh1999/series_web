@@ -142,7 +142,6 @@ export const getUserSavedSeriesById = async (params: getSavedSeriesParams) => {
       populate: [{ path: "reviews", model: Users }],
     });
 
-    console.log(user);
     const series = user.bookmarks;
     const parsingSeries = JSON.parse(JSON.stringify(series));
     if (!parsingSeries)
