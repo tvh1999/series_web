@@ -60,3 +60,15 @@ export interface getAllReviewsParams {
   seriesId: string;
   sortOrder?: "newest" | "oldest";
 }
+
+export interface getUserBookmarksParams {
+  userId: string;
+  page?: number;
+  pageSize?: number;
+}
+
+export interface getUserReviewsParams {
+  userId: string;
+  page?: number;
+  pageSize?: number;
+}

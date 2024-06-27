@@ -7,11 +7,14 @@ import {
   deleteUserParams,
   updateUserParams,
   getSavedSeriesParams,
+  getUserBookmarksParams,
+  getUserReviewsParams,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Series from "@/database/series.model";
 import { FilterQuery } from "mongoose";
 import console from "console";
+import Reviews from "@/database/reviews.model";
 
 export const findUserByClerkId = async (params: { clerkId: string }) => {
   try {
@@ -24,6 +27,89 @@ export const findUserByClerkId = async (params: { clerkId: string }) => {
 
     const parsingUser = JSON.parse(JSON.stringify(userId));
     return parsingUser;
+  } catch (err: unknown) {
+    if (err instanceof Error) console.error(err.message);
+  }
+};
+
+export interface getAccountInfoParams {
+  userId: string;
+}
+
+export const getUserAccountInfo = async (params: getAccountInfoParams) => {
+  try {
+    // Connect to database
+    await connectToDatabase();
+
+    const { userId: clerkId } = params;
+
+    const user = await Users.findOne({ clerkId }).populate({
+      path: "bookmarks",
+      model: Series,
+    });
+    if (!user)
+      throw new Error(
+        "Can not recieve the required user data, please check the value of clerkId again"
+      );
+    const totalBookmarks = await Series.countDocuments({ isBookmarked: true });
+    const totalReviews = await Reviews.countDocuments({ author: user._id });
+    const parsedUser = JSON.parse(JSON.stringify(user));
+    return { totalBookmarks, totalReviews, userInfo: parsedUser };
+  } catch (err: unknown) {
+    if (err instanceof Error) console.error(err.message);
+  }
+};
+
+export const getUserBookmarks = async (params: getUserBookmarksParams) => {
+  try {
+    // Connect to database
+    await connectToDatabase();
+
+    // eslint-disable-next-line no-unused-vars
+    const { userId, page = 1, pageSize = 10 } = params;
+
+    const totalBookmarks = await Series.countDocuments({ isBookmarked: true });
+    const bookmarkedList = await Users.findById(userId)
+      .select("_id bookmarks")
+      .populate({ path: "bookmarks", model: Series });
+
+    if (!bookmarkedList || !totalBookmarks)
+      throw new Error(
+        "There is something wrong when trying to retrieve the bookmarks list. Please check again the userId"
+      );
+    const parsedList = JSON.parse(JSON.stringify(bookmarkedList));
+    return { dataList: parsedList, totalBookmarks };
+  } catch (err: unknown) {
+    if (err instanceof Error) console.error(err.message);
+  }
+};
+
+export const getUserReviews = async (params: getUserReviewsParams) => {
+  try {
+    // Connect to database
+    await connectToDatabase();
+
+    // eslint-disable-next-line no-unused-vars
+    const { userId, page = 1, pageSize = 10 } = params;
+
+    const totalReviews = await Reviews.countDocuments({ author: userId });
+
+    const reviewsList = await Reviews.find({ author: userId })
+      .select("content author createdOn title _id")
+      .populate({
+        path: "author",
+        model: Users,
+        select: "_id username profileImage",
+      })
+      .populate({ path: "product", model: Series, select: "_id" });
+
+    if (!totalReviews || !reviewsList)
+      throw new Error(
+        "There has been an error when attempting to retrieve the reviews of this user. Recheck the userId if needed be"
+      );
+
+    const parsedList = JSON.parse(JSON.stringify(reviewsList));
+    return { dataList: parsedList, totalReviews };
   } catch (err: unknown) {
     if (err instanceof Error) console.error(err.message);
   }

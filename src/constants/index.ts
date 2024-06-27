@@ -25,4 +25,10 @@ export const NAVIGATION_ITEMS: NavTypes = [
     src: "/assets/icon-nav-bookmark.svg",
     alt: "Bookmark",
   },
+  {
+    id: "account",
+    href: "/account",
+    src: "/assets/account.svg",
+    alt: "Account",
+  },
 ];

@@ -11,7 +11,7 @@ const SeriesList = async ({
   otherClasses,
 }: {
   data: ISeriesType[];
-  heading: string;
+  heading?: string;
   otherClasses?: string;
 }) => {
   const { userId: clerkId } = auth();

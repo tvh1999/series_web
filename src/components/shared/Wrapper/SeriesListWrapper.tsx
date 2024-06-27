@@ -7,7 +7,7 @@ const SeriesListWrapper = ({
 }: {
   children: React.ReactNode;
   className?: string;
-  heading: string;
+  heading?: string;
 }) => {
   return (
     <section className="mt-6 w-fit max-w-full">
