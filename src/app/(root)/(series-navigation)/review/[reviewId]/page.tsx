@@ -11,7 +11,6 @@ const ReviewPage = async ({ params }: { params: { reviewId: string } }) => {
   }
   return (
     <div>
-      This is the review page
       <ReviewForm seriesId={params.reviewId} userId={mongoUser._id} />
     </div>
   );
