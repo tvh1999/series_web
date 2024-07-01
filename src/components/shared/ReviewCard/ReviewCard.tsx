@@ -4,6 +4,7 @@ import ParsedHTML from "../ParsedHTML/ParsedHTML";
 import { getTimeSince } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import EditAndDeleteAction from "../EditAndDeleteAction/EditAndDeleteAction";
 
 // interface Props {
 //   content: string;
@@ -40,7 +41,21 @@ const ReviewCard = ({ review }: { review: any }) => {
                 </div>
                 <p>{username}</p>
               </div>
-              <p>{getFormatedTime}</p>
+              <div>
+                <p className="mb-4">{getFormatedTime}</p>
+                <div className="flex gap-x-2">
+                  <EditAndDeleteAction
+                    seriesId={product._id}
+                    reviewId={_id}
+                    type="edit"
+                  />
+                  <EditAndDeleteAction
+                    seriesId={product._id}
+                    reviewId={_id}
+                    type="delete"
+                  />
+                </div>
+              </div>
             </div>
             <ParsedHTML data={title} isTitle={true} />
           </CardTitle>

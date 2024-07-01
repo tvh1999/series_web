@@ -53,12 +53,16 @@ const config: Config = {
           red: "#FC4747",
         },
         dark: {
+          300: "#151821",
+          400: "#212734",
           "dark-blue": "#10141E",
           "semi-dark-blue": "#161D2F",
           "pure-white": "#FFFFFF",
           "darker-greyish-blue": "#5A698F",
         },
         light: {
+          700: "#DCE3F1",
+          900: "#FFFFFF",
           "light-blue": "#99CCFF",
           "semi-light-blue": "#79B6C9",
           "pure-black": "#000000",

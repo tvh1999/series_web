@@ -9,6 +9,7 @@ import {
   getSavedSeriesParams,
   getUserBookmarksParams,
   getUserReviewsParams,
+  getAccountInfoParams,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Series from "@/database/series.model";
@@ -32,11 +33,7 @@ export const findUserByClerkId = async (params: { clerkId: string }) => {
   }
 };
 
-export interface getAccountInfoParams {
-  userId: string;
-}
-
-export const getUserAccountInfo = async (params: getAccountInfoParams) => {
+export const getClerkUserAccountInfo = async (params: getAccountInfoParams) => {
   try {
     // Connect to database
     await connectToDatabase();
@@ -55,6 +52,28 @@ export const getUserAccountInfo = async (params: getAccountInfoParams) => {
     const totalReviews = await Reviews.countDocuments({ author: user._id });
     const parsedUser = JSON.parse(JSON.stringify(user));
     return { totalBookmarks, totalReviews, userInfo: parsedUser };
+  } catch (err: unknown) {
+    if (err instanceof Error) console.error(err.message);
+  }
+};
+
+export const getUserAccountInfo = async (params: getAccountInfoParams) => {
+  try {
+    // Connect to database
+    await connectToDatabase();
+
+    const { userId } = params;
+
+    const user = await Users.findById(userId).populate({
+      path: "bookmarks",
+      model: Series,
+    });
+    if (!user)
+      throw new Error(
+        "Can not recieve the required user data, please check the value of userId again"
+      );
+    const parsedUser = JSON.parse(JSON.stringify(user));
+    return parsedUser;
   } catch (err: unknown) {
     if (err instanceof Error) console.error(err.message);
   }
@@ -137,7 +156,7 @@ export const updateUser = async (params: updateUserParams) => {
     const { clerkId, updateData, path } = params;
 
     // Update the user
-    const user = await Users.findByIdAndUpdate({ clerkId }, updateData, {
+    const user = await Users.findOneAndUpdate({ clerkId }, updateData, {
       new: true,
     });
     if (!user) throw new Error("Failed to update the selected user account");

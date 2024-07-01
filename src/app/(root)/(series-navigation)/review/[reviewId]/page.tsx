@@ -11,7 +11,11 @@ const ReviewPage = async ({ params }: { params: { reviewId: string } }) => {
   }
   return (
     <div>
-      <ReviewForm seriesId={params.reviewId} userId={mongoUser._id} />
+      <ReviewForm
+        type="create"
+        seriesId={params.reviewId}
+        userId={mongoUser?._id}
+      />
     </div>
   );
 };

@@ -16,48 +16,72 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Editor } from "@tinymce/tinymce-react";
-import { createReviews } from "@/lib/actions/reviews.action";
+import { createReviews, updateReview } from "@/lib/actions/reviews.action";
 import { usePathname, useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 
 interface Props {
   userId: string;
   seriesId: string;
+  type: "create" | "edit";
+  title?: string;
+  content?: string;
+  reviewId?: string;
 }
 
-const ReviewForm = ({ userId, seriesId }: Props) => {
+const ReviewForm = ({
+  userId,
+  seriesId,
+  reviewId,
+  type,
+  title,
+  content,
+}: Props) => {
   const editorRef = React.useRef(null);
   const [isSubmitted, setIsSubmitted] = React.useState(false);
   const path = usePathname();
   const router = useRouter();
+  const { theme } = useTheme();
+  const skinMode = theme === "dark" ? "oxide-dark" : "oxide";
+  const contentMode = theme === "dark" ? "dark" : "light";
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof reviewFormSchema>>({
     resolver: zodResolver(reviewFormSchema),
     defaultValues: {
-      title: "",
-      content: "",
+      title: title || "",
+      content: content || "",
     },
   });
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof reviewFormSchema>) {
     try {
-      // Do something with the form values.
-      // ✅ This will be type-safe and validated.
-      // console.log({ values });
-      createReviews({
-        title: values.title,
-        content: values.content,
-        userId,
-        seriesId,
-        path,
-      });
-      form.reset();
-      if (editorRef.current) {
-        const editor = editorRef.current as any;
-
-        editor.setContent("");
-      }
       setIsSubmitted(true);
+      if (type === "create") {
+        createReviews({
+          title: values.title,
+          content: values.content,
+          userId,
+          seriesId,
+          path,
+        });
+        form.reset();
+        if (editorRef.current) {
+          const editor = editorRef.current as any;
+
+          editor.setContent("");
+        }
+      }
+
+      if (type === "edit") {
+        await updateReview({
+          reviewId: reviewId!,
+          title: values.title,
+          content: values.content,
+          path,
+        });
+      }
     } catch (err: unknown) {
       if (err instanceof Error) console.error(err.message);
     } finally {
@@ -75,7 +99,10 @@ const ReviewForm = ({ userId, seriesId }: Props) => {
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input
+                  className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 This is your public display name.
@@ -89,7 +116,9 @@ const ReviewForm = ({ userId, seriesId }: Props) => {
           name="content"
           render={({ field }) => (
             <Editor
+              id="reviewEditor"
               apiKey={process.env.NEXT_PUBLIC_TINY_MCE_API_KEY}
+              initialValue={content}
               onInit={(_evt, editor) => {
                 // @ts-ignore
                 editorRef.current = editor;
@@ -124,6 +153,8 @@ const ReviewForm = ({ userId, seriesId }: Props) => {
                   "bold italic forecolor | alignleft aligncenter " +
                   "alignright alignjustify | bullist numlist outdent indent | " +
                   "removeformat | help",
+                skin: skinMode,
+                content_css: contentMode,
                 content_style:
                   "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
               }}

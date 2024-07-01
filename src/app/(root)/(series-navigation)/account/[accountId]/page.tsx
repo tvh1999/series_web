@@ -1,22 +1,23 @@
-import { Button } from "@/components/ui/button";
-import { getUserAccountInfo } from "@/lib/actions/users.action";
+import { getClerkUserAccountInfo } from "@/lib/actions/users.action";
 import { getTimeSince } from "@/lib/utils";
 import Image from "next/image";
 import StatCard from "@/components/shared/StatCard/StatCard";
 import AccountTabs from "@/components/shared/AccountTabs/AccountTabs";
+import Link from "next/link";
 
 interface AccountProps {
   params: { accountId: string };
 }
 
 const AccountPage = async ({ params }: AccountProps) => {
-  const { totalBookmarks, totalReviews, userInfo } = (await getUserAccountInfo({
-    userId: params.accountId,
-  })) as {
-    totalBookmarks: number;
-    totalReviews: number;
-    userInfo: { [key: string]: any };
-  };
+  const { totalBookmarks, totalReviews, userInfo } =
+    (await getClerkUserAccountInfo({
+      userId: params.accountId,
+    })) as {
+      totalBookmarks: number;
+      totalReviews: number;
+      userInfo: { [key: string]: any };
+    };
   // console.log({ totalBookmarks, totalReviews, userInfo });
   const badgesArray = [
     { imgUrl: "/assets/gold-medal.svg", value: 0, title: "Gold badge" },
@@ -58,9 +59,12 @@ const AccountPage = async ({ params }: AccountProps) => {
             </div>
           </div>
         </div>
-        <Button className="primary-font-color-pureWhite-pureBlack rounded-lg border px-8 py-5 text-18">
-          Edit Profile
-        </Button>
+        <Link
+          href={`/account/edit/${userInfo._id}`}
+          className="primary-font-color-pureWhite-pureBlack flex max-h-12 items-center justify-center rounded-lg border px-8 text-18"
+        >
+          <span>Edit Profile</span>
+        </Link>
       </div>
       <div className="mt-8 flex justify-start gap-x-4">
         <h2 className="mt-5 text-28 font-bold">Stats</h2>
