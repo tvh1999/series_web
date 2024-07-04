@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import qs from "query-string";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -35,3 +36,43 @@ export function getTimeSince(dateString: string | Date): string {
     return "just now";
   }
 }
+
+interface FormUrlPathProps {
+  entireSearchParams: string;
+  key: string;
+  value: string;
+}
+
+export const formUrlPath = function ({
+  entireSearchParams,
+  key,
+  value,
+}: FormUrlPathProps) {
+  const currentUrl = qs.parse(entireSearchParams);
+
+  currentUrl[key] = value;
+
+  return qs.stringifyUrl(
+    { url: window.location.pathname, query: currentUrl },
+    { skipNull: true }
+  );
+};
+
+interface DeleteUrlPathProps {
+  entireSearchParams: string;
+  keysToRemove: string[];
+}
+
+export const deleteUrlPath = function ({
+  entireSearchParams,
+  keysToRemove,
+}: DeleteUrlPathProps) {
+  const currentUrl = qs.parse(entireSearchParams);
+
+  keysToRemove.forEach((key) => delete currentUrl[key]);
+
+  return qs.stringifyUrl(
+    { url: window.location.pathname, query: currentUrl },
+    { skipNull: true }
+  );
+};

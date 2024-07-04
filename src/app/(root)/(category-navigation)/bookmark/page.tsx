@@ -24,7 +24,10 @@ const BookmarkedCollectionPage = async () => {
   );
   return (
     <div>
-      <LocalSearchBar placeHolder={"Search for bookmarked shows"} />
+      <LocalSearchBar
+        placeHolder={"Search for bookmarked shows"}
+        route="/bookmark"
+      />
       {moviesList?.length < 1 ? (
         "No movies can be found"
       ) : (

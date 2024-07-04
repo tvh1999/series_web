@@ -9,8 +9,8 @@ const MoviePage = async () => {
   });
   return (
     <div>
-      <LocalSearchBar placeHolder={"Search for Movie..."} />
-      <SeriesList data={getMoviesBasedOnCategoryPage!} userId={""} />
+      <LocalSearchBar placeHolder={"Search for Movie..."} route="/movie" />
+      <SeriesList data={getMoviesBasedOnCategoryPage!} />
     </div>
   );
 };
