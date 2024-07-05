@@ -16,7 +16,7 @@ const SeriesPage = async ({
     <div>
       <LocalSearchBar
         placeHolder={"Search for TV Series..."}
-        route="tv-series"
+        route="/tv-series"
       />
       <SeriesList data={getSeriesBasedOnCategoryPage!} heading="TV Series" />
     </div>

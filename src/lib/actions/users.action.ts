@@ -236,10 +236,17 @@ export const getUserSavedSeriesById = async (params: getSavedSeriesParams) => {
     // eslint-disable-next-line no-unused-vars
     const { clerkId, page = 1, pageSize = 10, searchQuery = "" } = params;
 
+    // Ta đang ra điều kiện cho giá trị regular expression của query.
+    // Nếu searchQuery có giá trị thì cho nó tìm kiếm các documents có title bằng với giá trị searchQuery
+    // Còn nếu không có thì là object rỗng để lấy ra mọi documents.
     const query: FilterQuery<typeof Series> = searchQuery
       ? { title: { $regex: new RegExp(searchQuery, "i") } }
       : {};
 
+    // Cái cần lưu tâm ở đây là thuộc tính match nằm bên trong method populate().
+    // Về cơ bản là nó đang mọi document được populate sẽ phải thỏa mãn điều kiện của query.
+    // trước khi được populate.
+    // Đây là cách duy nhất để chúng ta có thể lọc ra các documents ngay từ khi chúng còn đang ở giai đoạn populate mà không phải đi tạo thêm một method mongoose khác.
     const user = await Users.findOne({ clerkId }).populate({
       path: "bookmarks",
       match: query,
@@ -247,6 +254,7 @@ export const getUserSavedSeriesById = async (params: getSavedSeriesParams) => {
       populate: [{ path: "reviews", model: Users }],
     });
 
+    // Còn lại thì như cũ
     const series = user.bookmarks;
     const parsingSeries = JSON.parse(JSON.stringify(series));
     if (!parsingSeries)
