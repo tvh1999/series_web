@@ -37,7 +37,7 @@ const LocalSearchBar = ({
           router.push(urlPath, { scroll: false });
         }
       }
-    }, 300);
+    }, 250);
     return () => clearTimeout(timeoutEvent);
   }, [pathname, route, router, searchParams, searchResult]);
   return (

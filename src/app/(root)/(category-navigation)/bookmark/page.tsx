@@ -7,7 +7,15 @@ import { auth } from "@clerk/nextjs/server";
 import SeriesList from "@/components/shared/SeriesList/SeriesList";
 import LocalSearchBar from "@/components/shared/SearchBar/LocalSearchBar";
 
-const BookmarkedCollectionPage = async () => {
+interface BookmarkedCollectionPageProps {
+  searchParams: {
+    [key: string]: string | undefined;
+  };
+}
+
+const BookmarkedCollectionPage = async ({
+  searchParams,
+}: BookmarkedCollectionPageProps) => {
   const { userId: clerkId } = auth();
   let mongoUser;
   if (clerkId) {
@@ -15,6 +23,7 @@ const BookmarkedCollectionPage = async () => {
   }
   const seriesData = await getUserSavedSeriesById({
     clerkId: mongoUser.clerkId!,
+    searchQuery: searchParams.q,
   });
   const moviesList = seriesData.filter(
     (value: any) => value.category === "Movie"
@@ -28,9 +37,7 @@ const BookmarkedCollectionPage = async () => {
         placeHolder={"Search for bookmarked shows"}
         route="/bookmark"
       />
-      {moviesList?.length < 1 ? (
-        "No movies can be found"
-      ) : (
+      {moviesList?.length < 1 || (
         <SeriesList
           data={moviesList}
           heading="Bookmarked Movies"
@@ -38,9 +45,7 @@ const BookmarkedCollectionPage = async () => {
         />
       )}
 
-      {seriesList?.length < 1 ? (
-        "No series can be found"
-      ) : (
+      {seriesList?.length < 1 || (
         <SeriesList data={seriesList} heading="Bookmarked TV Series" />
       )}
     </div>

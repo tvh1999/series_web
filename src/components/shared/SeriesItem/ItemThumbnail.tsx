@@ -16,14 +16,14 @@ const ItemThumbnail = ({
   return isTrending ? (
     <>
       <Image
-        src={thumbnailLinks.trending.small}
+        src={thumbnailLinks.trending?.small}
         alt="Trending Image"
         width={240}
         height={140}
         className="rounded-md object-cover sm:hidden"
       />
       <Image
-        src={thumbnailLinks.trending.large}
+        src={thumbnailLinks.trending?.large}
         alt="Trending Image"
         width={470}
         height={230}
@@ -33,21 +33,21 @@ const ItemThumbnail = ({
   ) : (
     <>
       <Image
-        src={thumbnailLinks.regular.small}
+        src={thumbnailLinks.regular?.small}
         alt="recommended series"
         width={164}
         height={110}
         className="rounded-md object-cover sm:hidden"
       />
       <Image
-        src={thumbnailLinks.regular.medium}
+        src={thumbnailLinks.regular?.medium}
         alt="recommended series"
         width={220}
         height={140}
         className="hidden rounded-md object-cover md:block lg:hidden"
       />
       <Image
-        src={thumbnailLinks.regular.large}
+        src={thumbnailLinks.regular?.large}
         alt="recommended series"
         width={280}
         height={174}

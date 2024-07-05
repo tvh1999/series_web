@@ -40,7 +40,7 @@ export function getTimeSince(dateString: string | Date): string {
 interface FormUrlPathProps {
   entireSearchParams: string;
   key: string;
-  value: string;
+  value: string | null;
 }
 
 export const formUrlPath = function ({

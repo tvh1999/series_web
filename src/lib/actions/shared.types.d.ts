@@ -1,5 +1,5 @@
 export interface getSeriesParams {
-  category?: string;
+  category?: "TV Series" | "Movie";
   searchQuery?: string;
   sort?: string;
   isTrending?: boolean;

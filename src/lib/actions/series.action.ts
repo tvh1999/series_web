@@ -3,6 +3,7 @@ import Users from "@/database/users.model";
 import { connectToDatabase } from "../mongoose";
 import Series from "@/database/series.model";
 import { getSeriesParams, getSeriesBasedOnItsIdParams } from "./shared.types";
+import { FilterQuery } from "mongoose";
 
 export const savingSeriesIntoDB = async (params: any) => {
   try {
@@ -16,7 +17,22 @@ export const savingSeriesIntoDB = async (params: any) => {
 export const getSeriesFromDB = async (params: getSeriesParams) => {
   try {
     await connectToDatabase();
-    const getSeries = await Series.find(params).populate({
+    const { searchQuery = "", category = "" } = params;
+
+    const query: FilterQuery<typeof Series> = {};
+
+    if (searchQuery !== "" && category !== "") {
+      query.$and = [
+        { title: { $regex: new RegExp(searchQuery, "i") } },
+        { category: { $eq: category } },
+      ];
+    }
+
+    if (searchQuery === "" && category !== "") {
+      query.category = { $eq: category };
+    }
+
+    const getSeries = await Series.find(query).populate({
       path: "reviews",
       model: Users,
     });
