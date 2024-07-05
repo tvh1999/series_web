@@ -8,21 +8,15 @@ import ThemeToggle from "../Theme/ThemeToggle";
 
 const Header = () => {
   return (
-    <header className="sticky-content flex-between form-background-semiLightBlue-semiDarkBlue sticky-tablet-header sticky-desktop-header z-10 mb-8 min-h-[72px] rounded-[10px] px-4 py-3 lg:flex lg:min-h-[960px] lg:w-24 lg:flex-col lg:justify-start lg:px-8 lg:py-9">
-      <div className="lg:mb-20">
+    <header className="sticky-content flex-between form-background-semiLightBlue-semiDarkBlue sticky-tablet-header sticky-desktop-header z-10 mb-8 min-h-[72px] rounded-[10px] px-4 py-3 lg:flex lg:max-h-[680px] lg:w-24 lg:flex-col lg:justify-start lg:px-8 lg:py-9">
+      <div className="min-h-5 w-[25px] max-w-full lg:mb-20 lg:min-h-[25px] lg:w-8">
         <Image
           src="/assets/logo.svg"
           alt="Logo"
           width={25}
           height={20}
-          className="lg:hidden"
-        />
-        <Image
-          src="/assets/logo.svg"
-          alt="Logo"
-          width={32}
-          height={25}
-          className="hidden lg:block"
+          className="object-contain"
+          layout="responsive"
         />
       </div>
       <NavBar />
