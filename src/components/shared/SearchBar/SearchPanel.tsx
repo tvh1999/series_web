@@ -2,23 +2,30 @@
 import React from "react";
 import { useSearchParams } from "next/navigation";
 import GlobalFilters from "./GlobalFilters";
-import { globalSearch } from "@/lib/actions/general.action";
+import { globalSearch2 } from "@/lib/actions/general.action";
 import MatchedResult from "./MatchedResult";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 const SearchPanel = () => {
   const searchParams = useSearchParams();
   const globalQuery = searchParams.get("global");
   const typeQuery = searchParams.get("type");
-
   const [results, setResults] = React.useState([]);
-  console.log({ results });
+  const [isLoading, setIsLoading] = React.useState(false);
   React.useEffect(() => {
     const fetchResults = async () => {
-      const res = await globalSearch({
-        searchQuery: globalQuery,
-        type: typeQuery,
-      });
-      setResults(res as never[]);
+      try {
+        setIsLoading(true);
+        const res = await globalSearch2({
+          searchQuery: globalQuery,
+          type: typeQuery,
+        });
+        setResults(res as never[]);
+      } catch (err: unknown) {
+        if (err instanceof Error) console.error(err.message);
+      } finally {
+        setIsLoading(false);
+      }
     };
     if (globalQuery) fetchResults();
   }, [globalQuery, typeQuery]);
@@ -38,17 +45,26 @@ const SearchPanel = () => {
     <div className="primary-font-color-pureWhite-pureBlack absolute inset-x-0 top-12 z-10 bg-dark-darker-greyish-blue">
       <GlobalFilters />
       <div className="my-5 h-px bg-white/50 dark:bg-gray-50/50" />
-      {results.map((item: any, index: number) => {
-        const link = renderLink(item.type, item.id);
-        return (
-          <MatchedResult
-            key={`${item.type}-${item.title}-${index}`}
-            hrefLink={link!}
-            title={item.title}
-            type={item.type}
-          />
-        );
-      })}
+      {isLoading && (
+        <div className="mt-7 flex w-full max-w-full items-center justify-center">
+          <ReloadIcon className="size-10 animate-spin" />
+        </div>
+      )}
+      {results.length > 0 ? (
+        results.map((item: any, index: number) => {
+          const link = renderLink(item.type, item.id);
+          return (
+            <MatchedResult
+              key={`${item.type}-${item.title}-${index}`}
+              hrefLink={link!}
+              title={item.title}
+              type={item.type}
+            />
+          );
+        })
+      ) : (
+        <p>There is no matched results. Please try again!</p>
+      )}
     </div>
   );
 };
