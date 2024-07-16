@@ -26,7 +26,7 @@ const SeriesItem = ({
       alt={imageAlt}
       width={12}
       height={12}
-      className="object-contain"
+      className="size-auto object-contain"
     />
   );
   return (

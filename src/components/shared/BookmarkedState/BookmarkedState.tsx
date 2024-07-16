@@ -40,6 +40,7 @@ const BookmarkedState = ({
       }}
     >
       <Image
+        className="size-auto object-contain"
         src={bookkmarkedIconSrc}
         width={11.7}
         height={14}

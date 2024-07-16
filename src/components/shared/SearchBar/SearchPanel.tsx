@@ -30,7 +30,7 @@ const SearchPanel = () => {
       case "user":
         return `/account/${id}`;
       case "review":
-        return `/review/${id}`;
+        return `/series/${id}`;
     }
   };
 
@@ -38,11 +38,11 @@ const SearchPanel = () => {
     <div className="primary-font-color-pureWhite-pureBlack absolute inset-x-0 top-12 z-10 bg-dark-darker-greyish-blue">
       <GlobalFilters />
       <div className="my-5 h-px bg-white/50 dark:bg-gray-50/50" />
-      {results.map((item: any) => {
+      {results.map((item: any, index: number) => {
         const link = renderLink(item.type, item.id);
         return (
           <MatchedResult
-            key={item}
+            key={`${item.type}-${item.title}-${index}`}
             hrefLink={link!}
             title={item.title}
             type={item.type}

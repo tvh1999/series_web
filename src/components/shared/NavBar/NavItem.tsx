@@ -23,18 +23,11 @@ const NavItem = ({
         className="flex items-center justify-start gap-2 md:gap-8"
       >
         <Image
-          className={`object-contain ${isActive ? "border fill-primary-red" : ""} md:hidden`}
+          className={`size-auto min-h-[14px] w-[14px] max-w-full object-contain md:min-h-5 md:w-5 ${isActive ? "border fill-primary-red" : ""}`}
           src={src}
           alt={alt}
           width={14}
           height={14}
-        />
-        <Image
-          className={`hidden object-contain ${isActive ? "border fill-primary-red" : ""} md:inline-block`}
-          src={src}
-          alt={alt}
-          width={20}
-          height={20}
         />
         <h5 className=" text-black sm:hidden ">{alt}</h5>
       </Link>

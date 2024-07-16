@@ -35,8 +35,7 @@ const ReviewCard = ({ review }: { review: any }) => {
                     width={30}
                     height={30}
                     alt={`profile image of ${username}`}
-                    layout="responsive"
-                    className="rounded-full object-contain"
+                    className="size-auto rounded-full object-contain"
                   />
                 </div>
                 <p>{username}</p>

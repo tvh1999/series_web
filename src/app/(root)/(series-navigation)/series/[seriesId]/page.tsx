@@ -16,17 +16,15 @@ const SeriesPage = async ({ params }: { params: ParamsProps }) => {
   return (
     <>
       <div className="block px-4 sm:grid sm:grid-cols-2 sm:gap-x-5 sm:px-0">
-        <div className="h-auto w-full">
-          <Image
-            src={getSeries.thumbnail.regular.large}
-            width={600}
-            height={300}
-            alt={`${getSeries.title}`}
-            className="object-contain"
-            layout="responsive"
-          />
-        </div>
-        <div>
+        <Image
+          src={getSeries.thumbnail.regular.large}
+          width={600}
+          height={300}
+          alt={`${getSeries.title}`}
+          className="size-auto h-auto w-full object-contain"
+        />
+
+        <section>
           <h3 className="primary-font-color-pureWhite-pureBlack text-36 font-bold">
             {getSeries.title}
           </h3>
@@ -51,7 +49,7 @@ const SeriesPage = async ({ params }: { params: ParamsProps }) => {
             proident, sunt in culpa qui officia deserunt mollit anim id est
             laborum.
           </p>
-        </div>
+        </section>
       </div>
       <p className="primary-font-color-pureWhite-pureBlack mt-6 hidden text-20 sm:block lg:hidden">
         Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit,

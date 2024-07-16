@@ -20,6 +20,7 @@ const EditAndDeleteAction = ({
   return (
     <>
       <Image
+        className="size-auto object-contain"
         src={type === "edit" ? "/assets/edit.svg" : "/assets/trash.svg"}
         width={20}
         height={20}

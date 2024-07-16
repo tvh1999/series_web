@@ -35,7 +35,7 @@ const AccountPage = async ({ params }: AccountProps) => {
               height={100}
               alt={`profile image of ${userInfo?.name}`}
               layout="responsive"
-              className="rounded-full object-contain"
+              className="size-auto rounded-full object-contain"
             />
           </div>
           <div>
@@ -51,7 +51,7 @@ const AccountPage = async ({ params }: AccountProps) => {
                 width={20}
                 height={20}
                 alt="joined date icon"
-                className="mr-1 object-contain"
+                className="mr-1 size-auto object-contain"
               />
               <p className="primary-font-color-pureWhite-pureBlack">
                 {getTimeSince(userInfo.createdOn)}
@@ -86,7 +86,7 @@ const AccountPage = async ({ params }: AccountProps) => {
               width={40}
               height={54}
               alt={badge.title}
-              className="object-contain"
+              className="size-auto object-contain"
             />
             <StatCard
               value={badge.value}

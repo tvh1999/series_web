@@ -42,16 +42,14 @@ const LocalSearchBar = ({
   }, [pathname, route, router, searchParams, searchResult]);
   return (
     <div className="flex w-full max-w-full items-center gap-x-4">
-      <div className="max-h-6 w-6 max-w-full sm:max-h-8 sm:w-8">
-        <Image
-          className="object-contain"
-          src={"/assets/icon-search.svg"}
-          alt="Search Icon"
-          width={24}
-          height={24}
-          layout="responsive"
-        />
-      </div>
+      <Image
+        className="size-auto max-h-6 w-6 max-w-full object-contain sm:max-h-8 sm:w-8"
+        src={"/assets/icon-search.svg"}
+        alt="Search Icon"
+        width={24}
+        height={24}
+      />
+
       <Input
         type="text"
         className="no-focus primary-font-color-pureWhite-pureBlack border-none shadow-none outline-none focus:border-b focus:border-b-white"

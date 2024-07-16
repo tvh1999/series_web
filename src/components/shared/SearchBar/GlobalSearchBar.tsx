@@ -61,16 +61,14 @@ function GlobalSearchBar() {
       ref={panelContainer}
       className="relative flex w-full max-w-full cursor-pointer items-center gap-x-6"
     >
-      <div className="min-h-6 w-6 max-w-full sm:min-h-8 sm:w-8">
-        <Image
-          src={"/assets/icon-search.svg"}
-          alt="Search Icon"
-          width={24}
-          height={24}
-          className="object-contain"
-          layout="responsive"
-        />
-      </div>
+      <Image
+        src={"/assets/icon-search.svg"}
+        alt="Search Icon"
+        width={24}
+        height={24}
+        className="size-auto min-h-6 w-6 max-w-full object-contain sm:min-h-8 sm:w-8"
+      />
+
       <Input
         type="text"
         value={inputValue}

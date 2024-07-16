@@ -13,7 +13,7 @@ const ParsedHTML = ({
       {isTitle ? (
         <h4 className="text-25">{parse(data)}</h4>
       ) : (
-        <p className="text-18">{parse(data)}</p>
+        <span className="text-18">{parse(data)}</span>
       )}
     </div>
   );
