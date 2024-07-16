@@ -4,6 +4,7 @@ import { connectToDatabase } from "../mongoose";
 import Series from "@/database/series.model";
 import { getSeriesParams, getSeriesBasedOnItsIdParams } from "./shared.types";
 import { FilterQuery } from "mongoose";
+import Reviews from "@/database/reviews.model";
 
 export const savingSeriesIntoDB = async (params: any) => {
   try {
@@ -17,7 +18,7 @@ export const savingSeriesIntoDB = async (params: any) => {
 export const getSeriesFromDB = async (params: getSeriesParams) => {
   try {
     await connectToDatabase();
-    const { searchQuery = "", category = "" } = params;
+    const { searchQuery = "", category = "", isTrending = false } = params;
 
     const query: FilterQuery<typeof Series> = {};
 
@@ -28,13 +29,21 @@ export const getSeriesFromDB = async (params: getSeriesParams) => {
       ];
     }
 
+    if (isTrending) {
+      query.isTrending = { $eq: true };
+    }
+
+    // const abc = "title";
+    // const query2 = { [abc]: { $regex: searchQuery, $options: "i" } };
+    // const test2 = await Series.find(query2);
+
     if (searchQuery === "" && category !== "") {
       query.category = { $eq: category };
     }
 
     const getSeries = await Series.find(query).populate({
       path: "reviews",
-      model: Users,
+      model: Reviews,
     });
 
     const parsingSeries = await JSON.parse(JSON.stringify(getSeries));

@@ -95,3 +95,8 @@ export interface deleteReviewsParams {
 export interface getOneReviewParams {
   reviewId: string;
 }
+
+export interface GlobalSearchParams {
+  searchQuery: string | null;
+  type: string | null;
+}
