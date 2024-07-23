@@ -15,7 +15,7 @@ const SeriesList = async ({
   otherClasses?: string;
 }) => {
   const { userId: clerkId } = auth();
-  let mongoUser: string | undefined;
+  let mongoUser: any;
   if (clerkId) {
     mongoUser = await findUserByClerkId({ clerkId });
   }
@@ -28,7 +28,7 @@ const SeriesList = async ({
         <SeriesItem
           key={document._id}
           document={document!}
-          userId={mongoUser!}
+          userId={mongoUser?._id}
         />
       ))}
     </SeriesListWrapper>

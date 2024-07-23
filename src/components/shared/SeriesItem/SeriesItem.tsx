@@ -4,8 +4,9 @@ import Image from "next/image";
 import { ISeriesType } from "@/database/series.model";
 import ItemThumbnail from "./ItemThumbnail";
 import Link from "next/link";
+import { checkSeriesBookmarked } from "@/lib/actions/series.action";
 
-const SeriesItem = ({
+const SeriesItem = async ({
   document,
   isTrending = false,
   userId,
@@ -14,6 +15,10 @@ const SeriesItem = ({
   isTrending?: boolean;
   userId: string;
 }) => {
+  const bookmarkedStatus = await checkSeriesBookmarked({
+    userId,
+    currentSeriesId: document._id,
+  });
   const imageSrc =
     document.category === "Movie"
       ? "/assets/icon-nav-movies.svg"
@@ -38,7 +43,7 @@ const SeriesItem = ({
         otherClass="absolute right-2 top-2"
         seriesId={document._id}
         userId={userId}
-        isBookmarked={document.isBookmarked}
+        isBookmarked={bookmarkedStatus!}
       />
       {/* Co truong hop series khong phai la trending se khong co image cho trending aka khong co duong dan anh cho thumbnail.trending.small */}
       <ItemThumbnail

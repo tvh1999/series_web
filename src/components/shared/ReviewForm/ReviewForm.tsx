@@ -59,7 +59,7 @@ const ReviewForm = ({
     try {
       setIsSubmitted(true);
       if (type === "create") {
-        createReviews({
+        await createReviews({
           title: values.title,
           content: values.content,
           userId,

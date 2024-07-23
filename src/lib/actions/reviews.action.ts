@@ -31,7 +31,9 @@ export const createReviews = async (params: createReviewsParams) => {
       $push: { reviews: review._id },
     });
 
-    if (!review) throw new Error("Failed to create the review");
+    await Users.findByIdAndUpdate(userId, { $inc: { reputation: 10 } });
+
+    if (!review) throw new Error("Fail to create the review");
     revalidatePath(path);
   } catch (err: unknown) {
     if (err instanceof Error) console.error(err.message);
@@ -85,6 +87,11 @@ export const deleteReviews = async (params: deleteReviewsParams) => {
       throw new Error(
         "Can not delete review. Check the reviewId and seriesId for debugging purpose"
       );
+
+    await Users.findByIdAndUpdate(document.author, {
+      $inc: { reputation: -5 },
+    });
+
     revalidatePath(path);
   } catch (err: unknown) {
     if (err instanceof Error) console.error(err.message);

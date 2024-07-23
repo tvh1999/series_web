@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Series from "@/database/series.model";
 
 // Quản lý trạng thái kết nối của mongoose với database (mongoDB).
 let isConnected: boolean = false; // track the connection
@@ -27,5 +28,18 @@ export const connectToDatabase = async () => {
     console.log("Connection to database established");
   } catch (err: unknown) {
     if (err instanceof Error) console.error(err.message);
+  }
+};
+
+export const pushDataIntoDatabase = async (data: any[]) => {
+  try {
+    await connectToDatabase();
+
+    const series = await Series.insertMany(data);
+
+    return series;
+  } catch (error: unknown) {
+    if (error instanceof Error) console.error(error.message);
+    throw error;
   }
 };

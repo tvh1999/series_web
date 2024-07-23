@@ -74,3 +74,32 @@ export const getSeriesBasedOnItsId = async (
     if (err instanceof Error) console.error(err.message);
   }
 };
+
+export interface CheckBookmarkedParams {
+  userId: string;
+  currentSeriesId: string;
+}
+
+export const checkSeriesBookmarked = async (params: CheckBookmarkedParams) => {
+  try {
+    // connect to database
+    await connectToDatabase();
+
+    const { userId, currentSeriesId } = params;
+
+    const user = await Users.findById(userId);
+    const parsedUser = JSON.parse(JSON.stringify(user));
+    const bookmarkedList = parsedUser.bookmarks;
+    if (!user) throw new Error("Fail to retrieve the ");
+
+    if (bookmarkedList.includes(currentSeriesId)) {
+      await Series.findByIdAndUpdate(currentSeriesId, { isBookmarked: true });
+      return true;
+    } else {
+      await Series.findByIdAndUpdate(currentSeriesId, { isBookmarked: false });
+      return false;
+    }
+  } catch (err: unknown) {
+    if (err instanceof Error) console.error(err.message);
+  }
+};

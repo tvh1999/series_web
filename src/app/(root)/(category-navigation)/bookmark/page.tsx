@@ -37,7 +37,7 @@ const BookmarkedCollectionPage = async ({
         placeHolder={"Search for bookmarked shows"}
         route="/bookmark"
       />
-      {moviesList?.length < 1 || (
+      {moviesList?.length > 0 && (
         <SeriesList
           data={moviesList}
           heading="Bookmarked Movies"
@@ -45,7 +45,7 @@ const BookmarkedCollectionPage = async ({
         />
       )}
 
-      {seriesList?.length < 1 || (
+      {seriesList?.length > 0 && (
         <SeriesList data={seriesList} heading="Bookmarked TV Series" />
       )}
     </div>

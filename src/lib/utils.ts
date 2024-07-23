@@ -76,3 +76,5 @@ export const deleteUrlPath = function ({
     { skipNull: true }
   );
 };
+
+export const reuploadingData = function () {};

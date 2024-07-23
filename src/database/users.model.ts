@@ -9,6 +9,7 @@ export interface IUsersType extends Document {
   description?: string;
   bookmarks?: Schema.Types.ObjectId[];
   location?: string;
+  reputation: number;
   createdOn: Date;
 }
 
@@ -21,6 +22,7 @@ const usersSchema = new Schema({
   description: { type: String },
   bookmarks: [{ type: Schema.Types.ObjectId, ref: "Series" }],
   location: { type: String },
+  reputation: { type: Number, default: 0 },
   createdOn: { type: Date, default: Date.now },
 });
 
