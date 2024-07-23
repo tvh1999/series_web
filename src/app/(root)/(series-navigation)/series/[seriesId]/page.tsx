@@ -12,7 +12,7 @@ interface ParamsProps {
 const SeriesPage = async ({ params }: { params: ParamsProps }) => {
   const getSeries = await getSeriesBasedOnItsId({ seriesId: params.seriesId });
   const getReviews = await getAllReviews({ seriesId: params.seriesId });
-  console.log({ getReviews });
+  // console.log({ getReviews });
   return (
     <>
       <div className="block px-4 sm:grid sm:grid-cols-2 sm:gap-x-5 sm:px-0">

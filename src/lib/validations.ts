@@ -16,7 +16,7 @@ export const reviewFormSchema = z.object({
   content: z
     .string()
     .min(2, { message: "Your review must be at least 2 characters. " })
-    .max(500, { message: "Your review must be less than 500 characters. " }),
+    .max(1000, { message: "Your review must be less than 1000 characters. " }),
 });
 
 export const editFormSchema = z.object({
