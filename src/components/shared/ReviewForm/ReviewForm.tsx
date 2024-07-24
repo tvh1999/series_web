@@ -20,7 +20,7 @@ import { createReviews, updateReview } from "@/lib/actions/reviews.action";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-// import { htmltoText } from "@/lib/utils";
+import { useToast } from "@/components/ui/use-toast";
 
 interface Props {
   userId: string;
@@ -41,6 +41,7 @@ const ReviewForm = ({
   content,
   seriesTitle,
 }: Props) => {
+  const { toast } = useToast();
   const editorRef = React.useRef(null);
   const [isSubmitted, setIsSubmitted] = React.useState(false);
   const [isSubmittedAi, setIsSubmittedAI] = React.useState(false);
@@ -64,6 +65,7 @@ const ReviewForm = ({
     try {
       setIsSubmitted(true);
       if (type === "create") {
+        toast({ title: "Review created successful" });
         await createReviews({
           title: values.title,
           content: values.content,
@@ -80,6 +82,7 @@ const ReviewForm = ({
       }
 
       if (type === "edit") {
+        toast({ title: "Edit completed!" });
         await updateReview({
           reviewId: reviewId!,
           title: values.title,
@@ -88,6 +91,10 @@ const ReviewForm = ({
         });
       }
     } catch (err: unknown) {
+      toast({
+        title: "A problem has been detected when running review form",
+        variant: "destructive",
+      });
       if (err instanceof Error) console.error(err.message);
     } finally {
       setIsSubmitted(false);

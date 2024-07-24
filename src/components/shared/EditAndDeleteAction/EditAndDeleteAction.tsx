@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { deleteReviews } from "@/lib/actions/reviews.action";
+import { useToast } from "@/components/ui/use-toast";
 
 interface EditAndDeleteProps {
   reviewId: string;
@@ -15,6 +16,7 @@ const EditAndDeleteAction = ({
   seriesId,
   type,
 }: EditAndDeleteProps) => {
+  const { toast } = useToast();
   const router = useRouter();
   const path = usePathname();
   return (
@@ -28,8 +30,10 @@ const EditAndDeleteAction = ({
         onClick={(e) => {
           if (e.defaultPrevented) return;
           e.preventDefault();
-          if (type === "delete") deleteReviews({ reviewId, seriesId, path });
-          else router.push(`/review/edit/${reviewId}`);
+          if (type === "delete") {
+            deleteReviews({ reviewId, seriesId, path });
+            toast({ title: "Review has been deleted" });
+          } else router.push(`/review/edit/${reviewId}`);
         }}
       />
     </>

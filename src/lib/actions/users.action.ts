@@ -697,6 +697,7 @@ export const userBookmark = async (params: bookmarkParams) => {
     );
     if (!toggleBookmark) throw new Error("Failed to toggle the bookmark");
     revalidatePath(path);
+    return toggleBookmark === true;
   } catch (err: unknown) {
     if (err instanceof Error) console.error(err.message);
   }

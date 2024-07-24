@@ -17,12 +17,14 @@ import { Input } from "@/components/ui/input";
 import { editFormSchema } from "@/lib/validations";
 import { updateUser } from "@/lib/actions/users.action";
 import { usePathname, useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 interface ReviewEditPageProps {
   accountInfo: any;
 }
 
 const AccountEditForm = ({ accountInfo }: ReviewEditPageProps) => {
+  const { toast } = useToast();
   const [isSubmitted, setIsSubmitted] = React.useState(false);
   const path = usePathname();
   const router = useRouter();
@@ -40,6 +42,7 @@ const AccountEditForm = ({ accountInfo }: ReviewEditPageProps) => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof editFormSchema>) {
     try {
+      toast({ title: "Edit success!" });
       setIsSubmitted(true);
 
       await updateUser({
@@ -53,6 +56,12 @@ const AccountEditForm = ({ accountInfo }: ReviewEditPageProps) => {
         path,
       });
     } catch (err: unknown) {
+      toast({
+        title: "There is an error!",
+        description:
+          "There was an error when attempting to edit your account profile",
+        variant: "destructive",
+      });
       if (err instanceof Error) console.error(err.message);
     } finally {
       setIsSubmitted(false);

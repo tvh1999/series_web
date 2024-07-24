@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { userBookmark } from "@/lib/actions/users.action";
-// bg-[#606779]
+import { useToast } from "@/components/ui/use-toast";
 
 interface Props {
   userId: string;
@@ -17,6 +17,7 @@ const BookmarkedState = ({
   isBookmarked,
   otherClass,
 }: Props) => {
+  const { toast } = useToast();
   const [bookmarkedIconState, setBookmarkedIconState] =
     React.useState(isBookmarked);
   const path = usePathname();
@@ -31,12 +32,17 @@ const BookmarkedState = ({
   return (
     <div
       className={`flex-center min-h-8 w-8 max-w-full rounded-full bg-[#606779]/50 ${otherClass} hover:cursor-pointer`}
-      onClick={(e) => {
+      onClick={async (e) => {
         if (e.defaultPrevented) return;
         e.preventDefault();
 
         setBookmarkedIconState(!bookmarkedIconState);
-        userBookmark({ path, userId, seriesId });
+        const operationResult = await userBookmark({ path, userId, seriesId });
+        if (operationResult) {
+          toast({ title: "Bookmark success!", variant: "default" });
+        } else {
+          toast({ title: "Bookmark fails!", variant: "destructive" });
+        }
       }}
     >
       <Image

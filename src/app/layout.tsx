@@ -4,6 +4,7 @@ import "./globals.css";
 import React from "react";
 import { ClerkProvider } from "@clerk/nextjs";
 import Theme from "@/context/ThemeProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -41,7 +42,10 @@ export default function RootLayout({
         <body
           className={`min-h-screen w-screen max-w-full md:p-6 lg:p-8 ${inter.className}`}
         >
-          <Theme>{children}</Theme>
+          <Theme>
+            {children}
+            <Toaster />
+          </Theme>
         </body>
       </html>
     </ClerkProvider>
