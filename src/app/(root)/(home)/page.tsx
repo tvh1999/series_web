@@ -464,6 +464,7 @@ const HomePage = async () => {
   //     isTrending: false,
   //   },
   // ]);
+
   const getRecommendations = await getSeriesFromDB({});
   return (
     <div className="sm:px-4 md:px-0">
