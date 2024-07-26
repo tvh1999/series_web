@@ -26,7 +26,7 @@ const SeriesList = async ({
     >
       {data?.map((document) => (
         <SeriesItem
-          key={document._id}
+          key={document._id as string}
           document={document!}
           userId={mongoUser?._id}
         />

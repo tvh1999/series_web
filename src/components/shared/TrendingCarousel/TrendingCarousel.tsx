@@ -23,7 +23,7 @@ const TrendingCarousel = async () => {
       <Carousel>
         <CarouselContent>
           {trendingDocuments?.map((document: ISeriesType) => (
-            <CarouselItem key={document._id} className="basis-auto">
+            <CarouselItem key={document._id as string} className="basis-auto">
               <SeriesItem
                 document={document}
                 isTrending={true}
