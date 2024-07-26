@@ -10,7 +10,7 @@ interface EditReviewPageProps {
 
 const EditReviewPage = async ({ params }: EditReviewPageProps) => {
   const reviewInfo = await getOneReview({ reviewId: params.editId });
-  console.log(reviewInfo);
+  // console.log(reviewInfo);
   return (
     <div>
       <ReviewForm
@@ -20,6 +20,7 @@ const EditReviewPage = async ({ params }: EditReviewPageProps) => {
         reviewId={reviewInfo._id}
         title={reviewInfo.title}
         content={reviewInfo.content}
+        seriesTitle={reviewInfo.product.title}
       />
     </div>
   );

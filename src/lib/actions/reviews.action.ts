@@ -11,6 +11,7 @@ import {
 import { revalidatePath } from "next/cache";
 import Series from "@/database/series.model";
 import Users from "@/database/users.model";
+import { model } from "mongoose";
 
 export const createReviews = async (params: createReviewsParams) => {
   try {
@@ -134,7 +135,11 @@ export const getOneReview = async (params: getOneReviewParams) => {
     const { reviewId } = params;
 
     // Find the review
-    const review = await Reviews.findById(reviewId);
+    const review = await Reviews.findById(reviewId).populate({
+      path: "product",
+      model: Series,
+      select: "title",
+    });
 
     if (!review)
       throw new Error(
