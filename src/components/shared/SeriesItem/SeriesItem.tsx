@@ -17,7 +17,7 @@ const SeriesItem = async ({
 }) => {
   const bookmarkedStatus = await checkSeriesBookmarked({
     userId,
-    currentSeriesId: document._id,
+    currentSeriesId: document._id as string,
   });
   const imageSrc =
     document.category === "Movie"
@@ -41,7 +41,7 @@ const SeriesItem = async ({
     >
       <BookmarkedState
         otherClass="absolute right-2 top-2"
-        seriesId={document._id}
+        seriesId={document._id as string}
         userId={userId}
         isBookmarked={bookmarkedStatus!}
       />
